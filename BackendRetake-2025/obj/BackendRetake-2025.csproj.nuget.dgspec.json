@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\20106\\Desktop\\1AAA\\BackendRetake-2025\\BackendRetake-2025.csproj": {}
+    "C:\\Users\\20106\\Desktop\\11A\\BackendRepass-2025\\BackendRetake-2025\\BackendRetake-2025.csproj": {}
   },
   "projects": {
-    "C:\\Users\\20106\\Desktop\\1AAA\\BackendRetake-2025\\BackendRetake-2025.csproj": {
+    "C:\\Users\\20106\\Desktop\\11A\\BackendRepass-2025\\BackendRetake-2025\\BackendRetake-2025.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\20106\\Desktop\\1AAA\\BackendRetake-2025\\BackendRetake-2025.csproj",
+        "projectUniqueName": "C:\\Users\\20106\\Desktop\\11A\\BackendRepass-2025\\BackendRetake-2025\\BackendRetake-2025.csproj",
         "projectName": "BackendRetake-2025",
-        "projectPath": "C:\\Users\\20106\\Desktop\\1AAA\\BackendRetake-2025\\BackendRetake-2025.csproj",
+        "projectPath": "C:\\Users\\20106\\Desktop\\11A\\BackendRepass-2025\\BackendRetake-2025\\BackendRetake-2025.csproj",
         "packagesPath": "C:\\Users\\20106\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\20106\\Desktop\\1AAA\\BackendRetake-2025\\obj\\",
+        "outputPath": "C:\\Users\\20106\\Desktop\\11A\\BackendRepass-2025\\BackendRetake-2025\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -50,6 +50,36 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "BCrypt.Net-Next": {
+              "target": "Package",
+              "version": "[4.0.3, )"
+            },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Quartz": {
+              "target": "Package",
+              "version": "[3.15.1, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.6.2, )"
