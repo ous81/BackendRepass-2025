@@ -1,0 +1,22 @@
+# Build directories
+bin/
+obj/
+Debug/
+Release/
+
+# Visual Studio files
+.vs/
+
+# User settings
+*.user
+*.suo
+
+# NuGet
+*.nupkg
+packages/
+
+# Database (if auto-created)
+OnlineCinema.db
+
+# Logs
+*.log
