@@ -5,7 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using BackendRetake_2025.Data;
 //using BackendRetake_2025.Jobs;
-//using BackendRetake_2025.Mapping;
+using BackendRetake_2025.Mappings;
 using BackendRetake_2025.Services;
 using Quartz;
 using System.Text;
@@ -62,7 +62,7 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddDbContext<CinemaDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-//builder.Services.AddAutoMapper(typeof(MappingProfile));
+builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 builder.Services.AddScoped<IAuthService, AuthService>();
 

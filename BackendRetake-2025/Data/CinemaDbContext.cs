@@ -11,6 +11,10 @@ namespace BackendRetake_2025.Data
         }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Movie> Movies { get; set; }
+        public DbSet<Poster> Posters { get; set; }
+
+        //public DbSet<Review> Reviews { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -24,6 +28,18 @@ namespace BackendRetake_2025.Data
                 entity.Property(e => e.PasswordHash).IsRequired().HasMaxLength(255);
                 entity.Property(e => e.Role).HasConversion<string>();
             });
+
+            modelBuilder.Entity<Movie>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Title).IsRequired().HasMaxLength(200);
+                entity.Property(e => e.Director).IsRequired().HasMaxLength(100);
+                entity.Property(e => e.Genre).IsRequired().HasMaxLength(100);
+                entity.Property(e => e.BoxOffice).HasColumnType("decimal(18,2)");
+                entity.Property(e => e.AverageRating).HasDefaultValue(0.0);
+            });
         }
+
+
     }
 }

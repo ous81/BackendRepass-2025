@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BackendRetake-2025")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4e30cdd1860c156caefc40b099456c74b14e792d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+99299fe26a5e80c8a3bcbccd08f8da0119a8c581")]
 [assembly: System.Reflection.AssemblyProductAttribute("BackendRetake-2025")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BackendRetake-2025")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
