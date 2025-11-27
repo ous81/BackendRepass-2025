@@ -38,6 +38,26 @@ namespace BackendRetake_2025.Data
                 entity.Property(e => e.BoxOffice).HasColumnType("decimal(18,2)");
                 entity.Property(e => e.AverageRating).HasDefaultValue(0.0);
             });
+
+            modelBuilder.Entity<Poster>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Url).IsRequired();
+                entity.Property(e => e.MimeType).IsRequired().HasMaxLength(100);
+
+                entity.HasOne(e => e.Movie)
+                      .WithMany(m => m.Posters)
+                      .HasForeignKey(e => e.MovieId)
+                      .OnDelete(DeleteBehavior.Cascade);
+
+                //entity.HasOne(e => e.Series)
+                //      .WithMany(s => s.Posters)
+                //      .HasForeignKey(e => e.SeriesId)
+                //      .OnDelete(DeleteBehavior.Cascade);
+
+                entity.ToTable(t => t.HasCheckConstraint("CK_Poster_MovieOrSeries",
+                    "(MovieId IS NOT NULL AND SeriesId IS NULL) OR (MovieId IS NULL AND SeriesId IS NOT NULL)"));
+            });
         }
 
 

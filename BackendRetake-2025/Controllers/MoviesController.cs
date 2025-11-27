@@ -40,7 +40,7 @@ public class MoviesController : ControllerBase
     public async Task<ActionResult<MovieDetailsDTO>> GetMovie(int id)
     {
         var movie = await _context.Movies
-            //.Include(m => m.Posters)
+            .Include(m => m.Posters)
             //.Include(m => m.Reviews)
             //    .ThenInclude(r => r.User)
             .FirstOrDefaultAsync(m => m.Id == id);
@@ -62,7 +62,7 @@ public class MoviesController : ControllerBase
         await _context.SaveChangesAsync();
 
         var createdMovie = await _context.Movies
-            //.Include(m => m.Posters)
+            .Include(m => m.Posters)
             //.Include(m => m.Reviews)
             .FirstOrDefaultAsync(m => m.Id == movie.Id);
 
@@ -86,7 +86,7 @@ public class MoviesController : ControllerBase
         await _context.SaveChangesAsync();
 
         var updatedMovie = await _context.Movies
-            //.Include(m => m.Posters)
+            .Include(m => m.Posters)
             //.Include(m => m.Reviews)
             .FirstOrDefaultAsync(m => m.Id == id);
 
