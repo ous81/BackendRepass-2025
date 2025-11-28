@@ -1,12 +1,12 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.SqlServer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using BackendRetake_2025.Data;
 using BackendRetake_2025.Jobs;
 using BackendRetake_2025.Mappings;
 using BackendRetake_2025.Services;
+using BackendRetake_2025;
 using Quartz;
 using System.Text;
 using System.Reflection;
@@ -128,15 +128,15 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-//using (var scope = app.Services.CreateScope())
-//{
-//    var context = scope.ServiceProvider.GetRequiredService<CinemaDbContext>();
-//    context.Database.EnsureCreated();
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<CinemaDbContext>();
+    context.Database.EnsureCreated();
 
-//    if (!context.Users.Any())
-//    {
-//        await Seed.SeedDataAsync(context);
-//    }
-//}
+    if (!context.Users.Any())
+    {
+        await Seed.SeedDataAsync(context);
+    }
+}
 
 app.Run();
