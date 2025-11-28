@@ -17,7 +17,7 @@ namespace BackendRetake_2025.Data
         public DbSet<Review> Reviews { get; set; }
         public DbSet<Series> Series { get; set; }
         public DbSet<Episode> Episodes { get; set; }
-
+        public DbSet<Favorite> Favorites { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -110,6 +110,33 @@ namespace BackendRetake_2025.Data
 
                 entity.HasIndex(e => new { e.SeriesId, e.SeasonNumber, e.EpisodeNumber })
                       .IsUnique();
+            });
+
+            modelBuilder.Entity<Favorite>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+
+                entity.HasOne(e => e.User)
+                      .WithMany()
+                      .HasForeignKey(e => e.UserId)
+                      .OnDelete(DeleteBehavior.Cascade);
+
+                entity.HasOne(e => e.Movie)
+                      .WithMany(m => m.Favorites)
+                      .HasForeignKey(e => e.MovieId)
+                      .OnDelete(DeleteBehavior.Cascade);
+
+                entity.HasOne(e => e.Series)
+                      .WithMany(s => s.Favorites)
+                      .HasForeignKey(e => e.SeriesId)
+                      .OnDelete(DeleteBehavior.Cascade);
+
+                entity.ToTable(t => t.HasCheckConstraint("CK_Favorite_MovieOrSeries",
+                    "(MovieId IS NOT NULL AND SeriesId IS NULL) OR (MovieId IS NULL AND SeriesId IS NOT NULL)"));
+
+                entity.HasIndex(e => new { e.UserId, e.MovieId, e.SeriesId })
+                      .IsUnique()
+                      .HasFilter("(MovieId IS NOT NULL AND SeriesId IS NULL) OR (MovieId IS NULL AND SeriesId IS NOT NULL)");
             });
         }
 

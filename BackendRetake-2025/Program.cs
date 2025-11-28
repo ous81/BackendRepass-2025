@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.SqlServer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using BackendRetake_2025.Data;
-//using BackendRetake_2025.Jobs;
+using BackendRetake_2025.Jobs;
 using BackendRetake_2025.Mappings;
 using BackendRetake_2025.Services;
 using Quartz;
@@ -86,18 +86,18 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 builder.Services.AddAuthorization();
 
-//builder.Services.AddQuartz(q =>
-//{
-//    var jobKey = new JobKey("RatingCalculationJob");
-//    q.AddJob<RatingCalculationJob>(opts => opts.WithIdentity(jobKey));
+builder.Services.AddQuartz(q =>
+{
+    var jobKey = new JobKey("RatingCalculationJob");
+    q.AddJob<RatingCalculationJob>(opts => opts.WithIdentity(jobKey));
 
-//    q.AddTrigger(opts => opts
-//        .ForJob(jobKey)
-//        .WithIdentity("RatingCalculationTrigger")
-//        .WithCronSchedule("0 */5 * * * ?"));
-//});
+    q.AddTrigger(opts => opts
+        .ForJob(jobKey)
+        .WithIdentity("RatingCalculationTrigger")
+        .WithCronSchedule("0 */5 * * * ?"));
+});
 
-//builder.Services.AddQuartzHostedService(q => q.WaitForJobsToComplete = true);
+builder.Services.AddQuartzHostedService(q => q.WaitForJobsToComplete = true);
 
 builder.Services.AddCors(options =>
 {

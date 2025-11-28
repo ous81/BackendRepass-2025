@@ -37,6 +37,6 @@ public class Movie
     public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
     public virtual ICollection<Poster> Posters { get; set; } = new List<Poster>();
     public virtual ICollection<Review> Reviews { get; set; } = new List<Review>();
-    //public virtual ICollection<Favorite> Favorites { get; set; } = new List<Favorite>();
+    public virtual ICollection<Favorite> Favorites { get; set; } = new List<Favorite>();
 }
 

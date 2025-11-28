@@ -55,13 +55,13 @@ public class MappingProfile : Profile
         CreateMap<ReviewCreate, Review>();
         CreateMap<ReviewUpdate, Review>();
 
-        //CreateMap<Favorite, FavoriteDTO>()
-        //    .ForMember(dest => dest.Title, opt => opt.MapFrom(src =>
-        //        src.Movie != null ? src.Movie.Title : src.Series!.Title))
-        //    .ForMember(dest => dest.Type, opt => opt.MapFrom(src =>
-        //        src.Movie != null ? "Movie" : "Series"));
+        CreateMap<Favorite, FavoriteDTO>()
+            .ForMember(dest => dest.Title, opt => opt.MapFrom(src =>
+                src.Movie != null ? src.Movie.Title : src.Series!.Title))
+            .ForMember(dest => dest.Type, opt => opt.MapFrom(src =>
+                src.Movie != null ? "Movie" : "Series"));
 
-        //CreateMap<FavoriteCreate, Favorite>();
+        CreateMap<FavoriteCreate, Favorite>();
     }
 }
 
