@@ -32,7 +32,7 @@ public class MappingProfile : Profile
 
         CreateMap<Series, SeriesDetailsDTO>()
             .ForMember(dest => dest.ReleaseYear, opt => opt.MapFrom(src => src.ReleaseDate.Year))
-            //.ForMember(dest => dest.Episodes, opt => opt.MapFrom(src => src.Episodes))
+            .ForMember(dest => dest.Episodes, opt => opt.MapFrom(src => src.Episodes))
             .ForMember(dest => dest.Posters, opt => opt.MapFrom(src => src.Posters))
             .ForMember(dest => dest.Reviews, opt => opt.MapFrom(src => src.Reviews));
 
@@ -42,9 +42,9 @@ public class MappingProfile : Profile
         CreateMap<SeriesUpdate, Series>()
             .ForMember(dest => dest.ReleaseDate, opt => opt.MapFrom(src => new DateTime(src.ReleaseYear, 1, 1)));
 
-        //CreateMap<Episode, EpisodeDTO>();
-        //CreateMap<EpisodeCreate, Episode>();
-        //CreateMap<EpisodeUpdate, Episode>();
+        CreateMap<Episode, EpisodeDTO>();
+        CreateMap<EpisodeCreate, Episode>();
+        CreateMap<EpisodeUpdate, Episode>();
 
         CreateMap<Poster, PosterDTO>();
         CreateMap<PosterCreate, Poster>();

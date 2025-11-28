@@ -16,6 +16,8 @@ namespace BackendRetake_2025.Data
 
         public DbSet<Review> Reviews { get; set; }
         public DbSet<Series> Series { get; set; }
+        public DbSet<Episode> Episodes { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -95,6 +97,19 @@ namespace BackendRetake_2025.Data
                 entity.Property(e => e.Title).IsRequired().HasMaxLength(200);
                 entity.Property(e => e.Genre).IsRequired().HasMaxLength(100);
                 entity.Property(e => e.AverageRating).HasDefaultValue(0.0);
+            });
+
+            modelBuilder.Entity<Episode>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Title).IsRequired().HasMaxLength(200);
+                entity.HasOne(e => e.Series)
+                      .WithMany(s => s.Episodes)
+                      .HasForeignKey(e => e.SeriesId)
+                      .OnDelete(DeleteBehavior.Cascade);
+
+                entity.HasIndex(e => new { e.SeriesId, e.SeasonNumber, e.EpisodeNumber })
+                      .IsUnique();
             });
         }
 

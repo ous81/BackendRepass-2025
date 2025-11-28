@@ -39,7 +39,7 @@ public class SeriesController : ControllerBase
     public async Task<ActionResult<SeriesDetailsDTO>> GetSeries(int id)
     {
         var series = await _context.Series
-            //.Include(s => s.Episodes.OrderBy(e => e.SeasonNumber).ThenBy(e => e.EpisodeNumber))
+            .Include(s => s.Episodes.OrderBy(e => e.SeasonNumber).ThenBy(e => e.EpisodeNumber))
             .Include(s => s.Posters)
             .Include(s => s.Reviews)
                 .ThenInclude(r => r.User)
@@ -62,7 +62,7 @@ public class SeriesController : ControllerBase
         await _context.SaveChangesAsync();
 
         var createdSeries = await _context.Series
-            //.Include(s => s.Episodes)
+            .Include(s => s.Episodes)
             .Include(s => s.Posters)
             .Include(s => s.Reviews)
             .FirstOrDefaultAsync(s => s.Id == series.Id);
@@ -87,7 +87,7 @@ public class SeriesController : ControllerBase
         await _context.SaveChangesAsync();
 
         var updatedSeries = await _context.Series
-            //.Include(s => s.Episodes)
+            .Include(s => s.Episodes)
             .Include(s => s.Posters)
             .Include(s => s.Reviews)
             .FirstOrDefaultAsync(s => s.Id == id);
@@ -111,53 +111,53 @@ public class SeriesController : ControllerBase
         return NoContent();
     }
 
-    //[HttpGet("{id}/episodes")]
-    //public async Task<ActionResult<IEnumerable<EpisodeDTO>>> GetSeriesEpisodes(int id)
-    //{
-    //    var series = await _context.Series.FindAsync(id);
-    //    if (series == null)
-    //    {
-    //        return NotFound();
-    //    }
+    [HttpGet("{id}/episodes")]
+    public async Task<ActionResult<IEnumerable<EpisodeDTO>>> GetSeriesEpisodes(int id)
+    {
+        var series = await _context.Series.FindAsync(id);
+        if (series == null)
+        {
+            return NotFound();
+        }
 
-    //    var episodes = await _context.Episodes
-    //        .Where(e => e.SeriesId == id)
-    //        .OrderBy(e => e.SeasonNumber)
-    //        .ThenBy(e => e.EpisodeNumber)
-    //        .ToListAsync();
+        var episodes = await _context.Episodes
+            .Where(e => e.SeriesId == id)
+            .OrderBy(e => e.SeasonNumber)
+            .ThenBy(e => e.EpisodeNumber)
+            .ToListAsync();
 
-    //    return Ok(_mapper.Map<IEnumerable<EpisodeDTO>>(episodes));
-    //}
+        return Ok(_mapper.Map<IEnumerable<EpisodeDTO>>(episodes));
+    }
 
-    //[HttpPost("{id}/episodes")]
-    //[Authorize(Roles = "Admin")]
-    //public async Task<ActionResult<EpisodeDTO>> AddEpisode(int id, EpisodeCreate request)
-    //{
-    //    var series = await _context.Series.FindAsync(id);
-    //    if (series == null)
-    //    {
-    //        return NotFound();
-    //    }
+    [HttpPost("{id}/episodes")]
+    [Authorize(Roles = "Admin")]
+    public async Task<ActionResult<EpisodeDTO>> AddEpisode(int id, EpisodeCreate request)
+    {
+        var series = await _context.Series.FindAsync(id);
+        if (series == null)
+        {
+            return NotFound();
+        }
 
-    //    var existingEpisode = await _context.Episodes
-    //        .FirstOrDefaultAsync(e => e.SeriesId == id &&
-    //            e.SeasonNumber == request.SeasonNumber &&
-    //            e.EpisodeNumber == request.EpisodeNumber);
+        var existingEpisode = await _context.Episodes
+            .FirstOrDefaultAsync(e => e.SeriesId == id &&
+                e.SeasonNumber == request.SeasonNumber &&
+                e.EpisodeNumber == request.EpisodeNumber);
 
-    //    if (existingEpisode != null)
-    //    {
-    //        return BadRequest("Episode with this season and episode number already exists");
-    //    }
+        if (existingEpisode != null)
+        {
+            return BadRequest("Episode with this season and episode number already exists");
+        }
 
-    //    var episode = _mapper.Map<Episode>(request);
-    //    episode.SeriesId = id;
+        var episode = _mapper.Map<Episode>(request);
+        episode.SeriesId = id;
 
-    //    _context.Episodes.Add(episode);
-    //    await _context.SaveChangesAsync();
+        _context.Episodes.Add(episode);
+        await _context.SaveChangesAsync();
 
-    //    return CreatedAtAction(nameof(GetSeriesEpisodes), new { id },
-    //        _mapper.Map<EpisodeDTO>(episode));
-    //}
+        return CreatedAtAction(nameof(GetSeriesEpisodes), new { id },
+            _mapper.Map<EpisodeDTO>(episode));
+    }
 
     [HttpGet("{id}/posters")]
     public async Task<ActionResult<IEnumerable<PosterDTO>>> GetSeriesPosters(int id)
