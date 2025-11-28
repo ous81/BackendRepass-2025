@@ -15,6 +15,7 @@ namespace BackendRetake_2025.Data
         public DbSet<Poster> Posters { get; set; }
 
         public DbSet<Review> Reviews { get; set; }
+        public DbSet<Series> Series { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -50,10 +51,10 @@ namespace BackendRetake_2025.Data
                       .HasForeignKey(e => e.MovieId)
                       .OnDelete(DeleteBehavior.Cascade);
 
-                //entity.HasOne(e => e.Series)
-                //      .WithMany(s => s.Posters)
-                //      .HasForeignKey(e => e.SeriesId)
-                //      .OnDelete(DeleteBehavior.Cascade);
+                entity.HasOne(e => e.Series)
+                      .WithMany(s => s.Posters)
+                      .HasForeignKey(e => e.SeriesId)
+                      .OnDelete(DeleteBehavior.Cascade);
 
                 entity.ToTable(t => t.HasCheckConstraint("CK_Poster_MovieOrSeries",
                     "(MovieId IS NOT NULL AND SeriesId IS NULL) OR (MovieId IS NULL AND SeriesId IS NOT NULL)"));
@@ -75,10 +76,10 @@ namespace BackendRetake_2025.Data
                       .HasForeignKey(e => e.MovieId)
                       .OnDelete(DeleteBehavior.Cascade);
 
-                //entity.HasOne(e => e.Series)
-                //      .WithMany(s => s.Reviews)
-                //      .HasForeignKey(e => e.SeriesId)
-                //      .OnDelete(DeleteBehavior.Cascade);
+                entity.HasOne(e => e.Series)
+                      .WithMany(s => s.Reviews)
+                      .HasForeignKey(e => e.SeriesId)
+                      .OnDelete(DeleteBehavior.Cascade);
 
                 entity.ToTable(t => t.HasCheckConstraint("CK_Review_MovieOrSeries",
                     "(MovieId IS NOT NULL AND SeriesId IS NULL) OR (MovieId IS NULL AND SeriesId IS NOT NULL)"));
@@ -86,6 +87,14 @@ namespace BackendRetake_2025.Data
                 entity.HasIndex(e => new { e.UserId, e.MovieId, e.SeriesId })
                       .IsUnique()
                       .HasFilter("(MovieId IS NOT NULL AND SeriesId IS NULL) OR (MovieId IS NULL AND SeriesId IS NOT NULL)");
+            });
+
+            modelBuilder.Entity<Series>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Title).IsRequired().HasMaxLength(200);
+                entity.Property(e => e.Genre).IsRequired().HasMaxLength(100);
+                entity.Property(e => e.AverageRating).HasDefaultValue(0.0);
             });
         }
 

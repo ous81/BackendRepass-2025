@@ -27,20 +27,20 @@ public class MappingProfile : Profile
             .ForMember(dest => dest.ReleaseDate, opt => opt.MapFrom(src => new DateTime(src.ReleaseYear, 1, 1)))
             .ForMember(dest => dest.Duration, opt => opt.MapFrom(src => src.DurationMinutes));
 
-        //CreateMap<Series, SeriesListDTO>()
-        //    .ForMember(dest => dest.ReleaseYear, opt => opt.MapFrom(src => src.ReleaseDate.Year));
+        CreateMap<Series, SeriesListDTO>()
+            .ForMember(dest => dest.ReleaseYear, opt => opt.MapFrom(src => src.ReleaseDate.Year));
 
-        //CreateMap<Series, SeriesDetailsDTO>()
-        //    .ForMember(dest => dest.ReleaseYear, opt => opt.MapFrom(src => src.ReleaseDate.Year))
-        //    .ForMember(dest => dest.Episodes, opt => opt.MapFrom(src => src.Episodes))
-        //    .ForMember(dest => dest.Posters, opt => opt.MapFrom(src => src.Posters))
-        //    .ForMember(dest => dest.Reviews, opt => opt.MapFrom(src => src.Reviews));
+        CreateMap<Series, SeriesDetailsDTO>()
+            .ForMember(dest => dest.ReleaseYear, opt => opt.MapFrom(src => src.ReleaseDate.Year))
+            //.ForMember(dest => dest.Episodes, opt => opt.MapFrom(src => src.Episodes))
+            .ForMember(dest => dest.Posters, opt => opt.MapFrom(src => src.Posters))
+            .ForMember(dest => dest.Reviews, opt => opt.MapFrom(src => src.Reviews));
 
-        //CreateMap<SeriesCreate, Series>()
-        //    .ForMember(dest => dest.ReleaseDate, opt => opt.MapFrom(src => new DateTime(src.ReleaseYear, 1, 1)));
+        CreateMap<SeriesCreate, Series>()
+            .ForMember(dest => dest.ReleaseDate, opt => opt.MapFrom(src => new DateTime(src.ReleaseYear, 1, 1)));
 
-        //CreateMap<SeriesUpdate, Series>()
-        //    .ForMember(dest => dest.ReleaseDate, opt => opt.MapFrom(src => new DateTime(src.ReleaseYear, 1, 1)));
+        CreateMap<SeriesUpdate, Series>()
+            .ForMember(dest => dest.ReleaseDate, opt => opt.MapFrom(src => new DateTime(src.ReleaseYear, 1, 1)));
 
         //CreateMap<Episode, EpisodeDTO>();
         //CreateMap<EpisodeCreate, Episode>();

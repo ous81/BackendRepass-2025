@@ -20,6 +20,6 @@ public class Poster
 
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public virtual Movie? Movie { get; set; }
-    //public virtual Series? Series { get; set; }
+    public virtual Series? Series { get; set; }
 }
 

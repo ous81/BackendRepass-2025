@@ -23,6 +23,6 @@ public class Review
     public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
     public virtual User User { get; set; } = null!;
     public virtual Movie? Movie { get; set; }
-    //public virtual Series? Series { get; set; }
+    public virtual Series? Series { get; set; }
 }
 

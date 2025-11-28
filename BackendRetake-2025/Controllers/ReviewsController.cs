@@ -40,8 +40,7 @@ public class ReviewsController : ControllerBase
         return Ok(_mapper.Map<IEnumerable<ReviewDTO>>(reviews));
     }
 
-    // ---------------------- SERIES NOT IMPLEMENTED YET ----------------------
-    /*
+   
     [HttpGet("series/{seriesId}")]
     public async Task<ActionResult<IEnumerable<ReviewDTO>>> GetSeriesReviews(int seriesId)
     {
@@ -59,8 +58,7 @@ public class ReviewsController : ControllerBase
 
         return Ok(_mapper.Map<IEnumerable<ReviewDTO>>(reviews));
     }
-    */
-    // -----------------------------------------------------------------------
+    
 
     [HttpPost]
     [Authorize]
@@ -72,7 +70,7 @@ public class ReviewsController : ControllerBase
             return Unauthorized();
         }
 
-        // Only MovieId allowed for now — Series not implemented
+        
         if (!request.MovieId.HasValue)
         {
             return BadRequest("MovieId must be provided. Series reviews are disabled until Series module is implemented.");
