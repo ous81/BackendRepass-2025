@@ -41,8 +41,8 @@ public class MoviesController : ControllerBase
     {
         var movie = await _context.Movies
             .Include(m => m.Posters)
-            //.Include(m => m.Reviews)
-            //    .ThenInclude(r => r.User)
+            .Include(m => m.Reviews)
+                .ThenInclude(r => r.User)
             .FirstOrDefaultAsync(m => m.Id == id);
 
         if (movie == null)
@@ -63,7 +63,7 @@ public class MoviesController : ControllerBase
 
         var createdMovie = await _context.Movies
             .Include(m => m.Posters)
-            //.Include(m => m.Reviews)
+            .Include(m => m.Reviews)
             .FirstOrDefaultAsync(m => m.Id == movie.Id);
 
         return CreatedAtAction(nameof(GetMovie), new { id = movie.Id },
@@ -87,7 +87,7 @@ public class MoviesController : ControllerBase
 
         var updatedMovie = await _context.Movies
             .Include(m => m.Posters)
-            //.Include(m => m.Reviews)
+            .Include(m => m.Reviews)
             .FirstOrDefaultAsync(m => m.Id == id);
 
         return Ok(_mapper.Map<MovieDetailsDTO>(updatedMovie));
@@ -149,7 +149,7 @@ public class MoviesController : ControllerBase
     [RequestSizeLimit(10 * 1024 * 1024)]
     [RequestFormLimits(MultipartBodyLengthLimit = 10 * 1024 * 1024)]
     [Authorize(Roles = "Admin")]
-    public async Task<ActionResult<PosterDTO>> UploadMoviePoster(int id, [FromForm] IFormFile file)
+    public async Task<ActionResult<PosterDTO>> UploadMoviePoster(int id, [FromForm] FormFile file)
     {
         var movie = await _context.Movies.FindAsync(id);
         if (movie == null)

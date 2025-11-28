@@ -15,9 +15,9 @@ public class MappingProfile : Profile
 
         CreateMap<Movie, MovieDetailsDTO>()
             .ForMember(dest => dest.ReleaseYear, opt => opt.MapFrom(src => src.ReleaseDate.Year))
-            .ForMember(dest => dest.DurationMinutes, opt => opt.MapFrom(src => src.Duration));
-            //.ForMember(dest => dest.Posters, opt => opt.MapFrom(src => src.Posters))
-            //.ForMember(dest => dest.Reviews, opt => opt.MapFrom(src => src.Reviews));
+            .ForMember(dest => dest.DurationMinutes, opt => opt.MapFrom(src => src.Duration))
+            .ForMember(dest => dest.Posters, opt => opt.MapFrom(src => src.Posters))
+            .ForMember(dest => dest.Reviews, opt => opt.MapFrom(src => src.Reviews));
 
         CreateMap<MovieCreate, Movie>()
             .ForMember(dest => dest.ReleaseDate, opt => opt.MapFrom(src => new DateTime(src.ReleaseYear, 1, 1)))
@@ -46,14 +46,14 @@ public class MappingProfile : Profile
         //CreateMap<EpisodeCreate, Episode>();
         //CreateMap<EpisodeUpdate, Episode>();
 
-        //CreateMap<Poster, PosterDTO>();
-        //CreateMap<PosterCreate, Poster>();
+        CreateMap<Poster, PosterDTO>();
+        CreateMap<PosterCreate, Poster>();
 
-        //CreateMap<Review, ReviewDTO>()
-        //    .ForMember(dest => dest.UserEmail, opt => opt.MapFrom(src => src.User.Email));
+        CreateMap<Review, ReviewDTO>()
+            .ForMember(dest => dest.UserEmail, opt => opt.MapFrom(src => src.User.Email));
 
-        //CreateMap<ReviewCreate, Review>();
-        //CreateMap<ReviewUpdate, Review>();
+        CreateMap<ReviewCreate, Review>();
+        CreateMap<ReviewUpdate, Review>();
 
         //CreateMap<Favorite, FavoriteDTO>()
         //    .ForMember(dest => dest.Title, opt => opt.MapFrom(src =>
